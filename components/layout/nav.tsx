@@ -6,7 +6,6 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -119,7 +118,7 @@ export function Nav(): ReactNode {
     x: number;
     width: number;
   } | null>(null);
-  const [hasMeasured, setHasMeasured] = useState(false);
+  const hasMeasured = pillRect !== null;
 
   const activeIndex = NAV_ITEMS.findIndex((item) =>
     item.href === "/"
@@ -142,12 +141,6 @@ export function Nav(): ReactNode {
       width: itemRect.width,
     });
   }, [activeIndex, pathname]);
-
-  useEffect(() => {
-    if (!pillRect) return;
-    const id = requestAnimationFrame(() => setHasMeasured(true));
-    return () => cancelAnimationFrame(id);
-  }, [pillRect]);
 
   return (
     <nav
