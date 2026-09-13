@@ -47,6 +47,30 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Deploy to GitHub Pages
+
+This repository is configured to export the Next.js app as a static site and deploy it
+automatically with GitHub Actions. Push to `main`, then configure the repository's
+**Settings → Pages → Build and deployment → Source** as **GitHub Actions**. The
+workflow publishes the site at:
+
+`https://opalorcas.github.io/dleevbuild-portfolio`
+
+The workflow automatically sets the project-site base path so routes and assets work
+under `/dleevbuild-portfolio`. If the repository is renamed, update the
+`NEXT_PUBLIC_SITE_URL` value in `.github/workflows/deploy-pages.yml`; the base path is
+derived from the repository name automatically. For a custom domain, set
+`NEXT_PUBLIC_SITE_URL` to that domain and set `NEXT_PUBLIC_BASE_PATH` to an empty
+string in the workflow.
+
+To test the same static export locally:
+
+```powershell
+$env:NEXT_PUBLIC_BASE_PATH = "/dleevbuild-portfolio"
+$env:NEXT_PUBLIC_SITE_URL = "https://opalorcas.github.io/dleevbuild-portfolio"
+npm run build
+```
+
 ## Scripts
 
 | Command | Description |
@@ -122,7 +146,9 @@ Edit `lib/metadata.ts` to update:
 - Social media handles
 - Keywords and authors
 
-The default `siteConfig.url` is `https://example.com` — replace it with your production URL before deploying so OpenGraph and the sitemap emit correct absolute URLs.
+The default `siteConfig.url` targets this repository's GitHub Pages URL. Set
+`NEXT_PUBLIC_SITE_URL` in the deployment workflow to your production URL before
+deploying a fork so OpenGraph and the sitemap emit correct absolute URLs.
 
 ### 2. Replace Brand & Portrait
 

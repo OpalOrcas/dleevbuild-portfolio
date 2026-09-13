@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://opalorcas.github.io/dleevbuild-portfolio";
+
 export const siteConfig = {
   name: "Portfolio",
   description:
     "A modern, accessible portfolio template built with Next.js, Tailwind CSS, and TypeScript.",
-  url: "https://example.com",
+  url: siteUrl,
   ogImage: "/og-image.png",
   creator: "@yourhandle",
   authors: [
     {
       name: "Your Name",
-      url: "https://example.com",
+      url: siteUrl,
     },
   ],
   keywords: [
