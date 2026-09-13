@@ -131,15 +131,19 @@ export function Nav(): ReactNode {
     const activeEl =
       activeIndex >= 0 ? itemRefs.current[activeIndex] : null;
     if (!list || !activeEl) {
-      setPillRect(null);
       return;
     }
-    const listRect = list.getBoundingClientRect();
-    const itemRect = activeEl.getBoundingClientRect();
-    setPillRect({
-      x: itemRect.left - listRect.left,
-      width: itemRect.width,
+
+    const id = requestAnimationFrame(() => {
+      const listRect = list.getBoundingClientRect();
+      const itemRect = activeEl.getBoundingClientRect();
+      setPillRect({
+        x: itemRect.left - listRect.left,
+        width: itemRect.width,
+      });
     });
+
+    return () => cancelAnimationFrame(id);
   }, [activeIndex, pathname]);
 
   return (
